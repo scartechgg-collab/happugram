@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* HappuGram brand palette */
+  --color-hg-bg: #ffffff;
+  --color-hg-fg: #0b0b10;
+  --color-hg-muted: #6b7280;
+  --color-hg-line: #e7e7ee;
+  --color-hg-surface: #ffffff;
+  --color-hg-surface-2: #f6f6fa;
+  --color-hg-accent: #7c5cff;
+  --color-hg-accent-2: #22d3ee;
+  --color-hg-bubble-me: #7c5cff;
+  --color-hg-bubble-me-fg: #ffffff;
+  --color-hg-bubble-them: #f1f1f6;
+  --color-hg-bubble-them-fg: #0b0b10;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+    --color-hg-bg: #0b0b10;
+    --color-hg-fg: #f5f5f7;
+    --color-hg-muted: #9aa0ac;
+    --color-hg-line: #1f2029;
+    --color-hg-surface: #13131a;
+    --color-hg-surface-2: #1a1b24;
+    --color-hg-accent: #a78bfa;
+    --color-hg-accent-2: #22d3ee;
+    --color-hg-bubble-me: linear-gradient(135deg, #7c5cff 0%, #a78bfa 100%);
+    --color-hg-bubble-me-fg: #ffffff;
+    --color-hg-bubble-them: #1d1e28;
+    --color-hg-bubble-them-fg: #f5f5f7;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    background: var(--color-hg-bg);
+    color: var(--color-hg-fg);
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  input,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+
+  /* Hide number input spinners for the code keypad */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-hg-fg) 20%, transparent);
+    border-radius: 9999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--color-hg-fg) 35%, transparent);
+  }
+
+  .glass {
+    background: color-mix(in srgb, var(--color-hg-surface) 80%, transparent);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #7c5cff 0%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .keypad-key {
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    transition: transform 80ms ease, background-color 120ms ease;
+  }
+  .keypad-key:active {
+    transform: scale(0.96);
+  }
+
+  .bubble-me {
+    background: linear-gradient(135deg, #7c5cff 0%, #a78bfa 100%);
+    color: #fff;
+  }
+  .bubble-them {
+    background: var(--color-hg-bubble-them);
+    color: var(--color-hg-bubble-them-fg);
+  }
+
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.4;
+    animation: typing 1.2s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .typing-dot:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes typing {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-up {
+    animation: fade-up 180ms ease-out both;
+  }
+
+  @keyframes pop-in {
+    0% {
+      transform: scale(0.85);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .animate-pop-in {
+    animation: pop-in 140ms ease-out both;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    20%,
+    60% {
+      transform: translateX(-6px);
+    }
+    40%,
+    80% {
+      transform: translateX(6px);
+    }
+  }
+  .animate-shake {
+    animation: shake 400ms ease-in-out;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  .recording-ring {
+    animation: pulse-ring 1.4s ease-out infinite;
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

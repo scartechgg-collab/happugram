@@ -1,0 +1,17 @@
+{
+  "name": "HappuGram",
+  "short_name": "HappuGram",
+  "description": "Private, fast messaging",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0b10",
+  "theme_color": "#7c5cff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
